@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>grass-revision</artifactId>
+        <groupId>com.yanglinkui.grass</groupId>
+        <version>${revision}</version>
+        <relativePath>./grass-revision/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>grass-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>The parent project of grass</description>
+    <url>https://github.com/xiaoyu830411/grass</url>
+    <inceptionYear>2019</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/xiaoyu830411/grass</url>
+        <!--<container>scm:git:https://github.com/xiaoyu830411/grass.git</container>-->
+        <developerConnection>scm:git:https://github.com/xiaoyu830411/grass.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Jonas Yang</name>
+            <email>yanglinkui@gmail.com</email>
+            <url>https://github.com/xiaoyu830411</url>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>Github Issues</system>
+        <url>https://github.com/xiaoyu830411/grass/issues</url>
+    </issueManagement>
+
+    <properties>
+        <main.basedir>${basedir}</main.basedir>
+        <!-- for maven compiler plugin -->
+        <java_source_version>1.8</java_source_version>
+        <java_target_version>1.8</java_target_version>
+        <file_encoding>UTF-8</file_encoding>
+        <!-- Plugin versions -->
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
+    </properties>
+
+    <modules>
+        <module>grass-core</module>
+        <module>grass-serializer</module>
+        <module>grass-registry</module>
+        <module>grass-protocol</module>
+        <module>grass-common</module>
+        <module>grass-docs</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.yanglinkui.grass</groupId>
+                <artifactId>grass-dependencies-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${maven-eclipse-plugin.version}</version>
+                <configuration>
+                    <useProjectReferences>false</useProjectReferences>
+                    <additionalConfig>
+                        <file>
+                            <name>.settings/org.eclipse.jdt.ui.prefs</name>
+                            <location>${main.basedir}/eclipse/org.eclipse.jdt.ui.prefs
+                            </location>
+                        </file>
+                        <file>
+                            <name>.settings/org.eclipse.jdt.core.prefs</name>
+                            <location>${main.basedir}/eclipse/org.eclipse.jdt.core.prefs
+                            </location>
+                        </file>
+                    </additionalConfig>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java_source_version}</source>
+                    <target>${java_target_version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
